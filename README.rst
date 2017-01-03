@@ -36,7 +36,7 @@ Then add the following settings:
 .. code-block:: python
 
     INSTALLED_APPS += (
-        'permanent_helpers',
+        'django_permanent_helpers',
     )
 
 
