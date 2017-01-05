@@ -8,4 +8,4 @@ if django.VERSION < (1, 9):
 
 default_app_config = '%s.apps.AppConfig' % __name__
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
