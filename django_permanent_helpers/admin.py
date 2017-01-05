@@ -6,11 +6,16 @@ from django.db.models.query_utils import Q
 from django.core.exceptions import PermissionDenied
 from django.contrib.admin.utils import model_ngettext
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.admin.actions import delete_selected
 
 from django_permanent import settings as permanent_settings
 
-delete_selected.short_description = _("Soft delete selected %(verbose_name_plural)s")
+
+def softdelete_selected(modeladmin, request, queryset):
+    from django.contrib.admin.actions import delete_selected
+
+    return delete_selected(modeladmin, request, queryset)
+    
+softdelete_selected.short_description = _("Soft delete selected %(verbose_name_plural)s")
 
 
 def restore_selected(modeladmin, request, queryset):
@@ -31,7 +36,13 @@ restore_selected.short_description = _("Restore selected %(verbose_name_plural)s
 
 
 class PermanentModelAdmin(admin.ModelAdmin):
-    actions = [delete_selected, restore_selected]
+    actions = [softdelete_selected, restore_selected]
+
+    def get_actions(self, request):
+        actions = super(PermanentModelAdmin, self).get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
 
     def get_queryset(self, request):
         try:
