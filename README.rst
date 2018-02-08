@@ -8,9 +8,6 @@ Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit
 .. image:: https://img.shields.io/pypi/v/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
-.. image:: https://img.shields.io/pypi/dm/django-permanent-helpers.svg
-    :target: https://pypi.python.org/pypi/django-permanent-helpers/
-
 .. image:: https://img.shields.io/github/license/bashu/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
