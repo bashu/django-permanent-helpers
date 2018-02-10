@@ -15,9 +15,6 @@ from django.utils.translation import ugettext_lazy as _
 from django_permanent import settings as permanent_settings
 
 
-delete_selected.short_description = _("Soft delete selected %(verbose_name_plural)s")
-
-
 def restore_selected(modeladmin, request, queryset):
     opts = modeladmin.model._meta
     app_label = opts.app_label
@@ -75,7 +72,7 @@ class PermanentModelAdmin(admin.ModelAdmin):
             actions['delete_selected'] = (
                 delete_selected,
                 'delete_selected',
-                delete_selected.short_description
+                _("Soft delete selected %(verbose_name_plural)s"),
             )
         return actions
 
