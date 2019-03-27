@@ -8,11 +8,11 @@ Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit
 .. image:: https://img.shields.io/pypi/v/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
-.. image:: https://img.shields.io/github/license/bashu/django-permanent-helpers.svg
+.. image:: https://img.shields.io/pypi/dm/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
-.. image:: https://landscape.io/github/bashu/django-permanent-helpers/develop/landscape.svg?style=flat
-    :target: https://landscape.io/github/bashu/django-permanent-helpers/develop
+.. image:: https://img.shields.io/github/license/bashu/django-permanent-helpers.svg
+    :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
 Installation
 ============
@@ -39,6 +39,34 @@ Then add the following settings:
 
 Usage
 =====
+
+PermanentModelAdmin
+-------------------
+
+An abstract ModelAdmin which will include deleted objects in its listing and enable un-deleting feature.
+
+.. code-block:: python
+
+    from django_permanent_helpers import PermanentModelAdmin
+    # For Django 1.9+, use this instead:
+    # from django_permanent_helpers.admin import PermanentModelAdmin
+
+    class MyModelAdmin(PermanentModelAdmin):
+        pass
+
+PermanentModelListFilter
+------------------------
+
+Filter records by their ``PERMANENT_FIELD`` value, use together with ``PermanentModelAdmin`` class.
+
+.. code-block:: python
+
+    from django_permanent_helpers import PermanentModelAdmin, PermanentModelListFilter
+    # For Django 1.9+, use this instead:
+    # from django_permanent_helpers.admin import PermanentModelAdmin, PermanentModelListFilter
+
+    class MyModelAdmin(PermanentModelAdmin):
+        list_filter = [PermanentModelListFilter]
 
 Contributing
 ------------
