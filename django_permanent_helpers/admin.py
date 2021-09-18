@@ -10,7 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.admin.actions import delete_selected
 from django.contrib.admin.utils import model_ngettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_permanent import settings as permanent_settings
 
