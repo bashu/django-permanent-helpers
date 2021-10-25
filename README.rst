@@ -1,10 +1,6 @@
 django-permanent-helpers
 ========================
 
-Django admin helper classes for django-permanent_ models.
-
-Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit-helpers_
-
 .. image:: https://img.shields.io/pypi/v/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
@@ -13,6 +9,10 @@ Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit
 
 .. image:: https://img.shields.io/github/license/bashu/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
+
+Django admin helper classes for django-permanent_ models.
+
+Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit-helpers_
 
 Installation
 ============
@@ -69,7 +69,7 @@ Filter records by their ``PERMANENT_FIELD`` value, use together with ``Permanent
         list_filter = [PermanentModelListFilter]
 
 Contributing
-------------
+============
 
 If you like this module, forked it, or would like to improve it, please let us know!
 Pull requests are welcome too. :-)
