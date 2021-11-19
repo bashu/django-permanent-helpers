@@ -15,7 +15,7 @@ Django admin helper classes for django-permanent_ models.
 Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit-helpers_
 
 Installation
-============
+------------
 
 First install the module, preferably in a virtual environment. It can be installed from PyPI:
 
@@ -23,8 +23,8 @@ First install the module, preferably in a virtual environment. It can be install
 
     pip install django-permanent-helpers
 
-Configuration
--------------
+Setup
+-----
 
 First make sure the project is configured for django-permanent_.
 
@@ -38,41 +38,42 @@ Then add the following settings:
 
 
 Usage
-=====
+-----
 
 PermanentModelAdmin
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 An abstract ModelAdmin which will include deleted objects in its listing and enable un-deleting feature.
 
 .. code-block:: python
 
-    from django_permanent_helpers import PermanentModelAdmin
-    # For Django 1.9+, use this instead:
-    # from django_permanent_helpers.admin import PermanentModelAdmin
+    from django_permanent_helpers.admin import PermanentModelAdmin
 
     class MyModelAdmin(PermanentModelAdmin):
         pass
 
 PermanentModelListFilter
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Filter records by their ``PERMANENT_FIELD`` value, use together with ``PermanentModelAdmin`` class.
 
 .. code-block:: python
 
-    from django_permanent_helpers import PermanentModelAdmin, PermanentModelListFilter
-    # For Django 1.9+, use this instead:
-    # from django_permanent_helpers.admin import PermanentModelAdmin, PermanentModelListFilter
+    from django_permanent_helpers.admin import PermanentModelAdmin, PermanentModelListFilter
 
     class MyModelAdmin(PermanentModelAdmin):
         list_filter = [PermanentModelListFilter]
 
 Contributing
-============
+------------
 
 If you like this module, forked it, or would like to improve it, please let us know!
 Pull requests are welcome too. :-)
+
+License
+-------
+
+``django-permanent-helpers`` is released under the MIT license.
 
 .. _django-permanent: https://github.com/meteozond/django-permanent
 .. _django-taggit-helpers: https://github.com/mfcovington/django-taggit-helpers

@@ -7,4 +7,4 @@ class AppConfig(AppConfig):
 
     def __init__(self, *args, **kwargs):
         self.label = self.name.replace(".", "_")
-        super(AppConfig, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
