@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.actions import delete_selected
@@ -59,8 +57,8 @@ def restore_selected(modeladmin, request, queryset):
         request,
         modeladmin.restore_selected_confirmation_template
         or [
-            "admin/%s/%s/restore_selected_confirmation.html" % (app_label, opts.model_name),
-            "admin/%s/restore_selected_confirmation.html" % app_label,
+            f"admin/{app_label}/{opts.model_name}/restore_selected_confirmation.html",
+            f"admin/{app_label}/restore_selected_confirmation.html",
             "admin/restore_selected_confirmation.html",
         ],
         context,
@@ -75,7 +73,7 @@ class PermanentModelAdmin(admin.ModelAdmin):
     actions = [restore_selected]
 
     def get_actions(self, request):
-        actions = super(PermanentModelAdmin, self).get_actions(request)
+        actions = super().get_actions(request)
         if "delete_selected" in actions:
             actions["delete_selected"] = (
                 delete_selected,
