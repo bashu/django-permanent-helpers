@@ -1,14 +1,21 @@
 django-permanent-helpers
 ========================
 
-.. image:: https://img.shields.io/pypi/v/django-permanent-helpers.svg
+.. image:: https://badge.fury.io/py/django-permanent-helpers.svg
+    :target: https://badge.fury.io/py/django-permanent-helpers
+
+.. image:: https://img.shields.io/pypi/pyversions/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
-.. image:: https://img.shields.io/pypi/dm/django-permanent-helpers.svg
+.. image:: https://img.shields.io/pypi/djversions/django-permanent-helpers.svg
     :target: https://pypi.python.org/pypi/django-permanent-helpers/
 
-.. image:: https://img.shields.io/github/license/bashu/django-permanent-helpers.svg
-    :target: https://pypi.python.org/pypi/django-permanent-helpers/
+.. image:: https://github.com/bashu/django-permanent-helpers/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/bashu/django-permanent-helpers/actions/workflows/test.yml
+
+.. image:: https://static.pepy.tech/badge/django-permanent-helpers/month
+    :target: https://pepy.tech/project/django-permanent-helpers
+
 
 Django admin helper classes for django-permanent_ models.
 
