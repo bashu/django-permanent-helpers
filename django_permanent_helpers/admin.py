@@ -1,18 +1,21 @@
-from django.contrib import admin, messages
+from django.contrib import admin
+from django.contrib import messages
 from django.contrib.admin import helpers
 from django.contrib.admin.actions import delete_selected
-from django.contrib.admin.models import CHANGE, LogEntry
+from django.contrib.admin.models import CHANGE
+from django.contrib.admin.models import LogEntry
 from django.contrib.admin.utils import model_ngettext
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.db.models.query_utils import Q
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
+
 from django_permanent import settings as permanent_settings
 
 
+@admin.action(description=_("Restore selected %(verbose_name_plural)s"))
 def restore_selected(modeladmin, request, queryset):
-    opts = modeladmin.model._meta
+    opts = modeladmin.model._meta  # noqa: SLF001
     app_label = opts.app_label
 
     # Check that the user has delete permission for the actual model
@@ -65,11 +68,10 @@ def restore_selected(modeladmin, request, queryset):
     )
 
 
-restore_selected.short_description = _("Restore selected %(verbose_name_plural)s")
-
-
 class PermanentModelAdmin(admin.ModelAdmin):
-    restore_selected_confirmation_template = "django_permanent_helpers/restore_selected_confirmation.html"
+    restore_selected_confirmation_template = (
+        "django_permanent_helpers/restore_selected_confirmation.html"
+    )
     actions = [restore_selected]
 
     def get_actions(self, request):
@@ -87,19 +89,18 @@ class PermanentModelAdmin(admin.ModelAdmin):
         Log that an object will be restored.
         The default implementation creates an admin LogEntry object.
         """
-        LogEntry.objects.log_action(
+        LogEntry.objects.log_actions(
             user_id=request.user.pk,
-            content_type_id=ContentType.objects.get_for_model(self.model).pk,
-            object_id=obj.pk,
-            object_repr=object_repr,
+            queryset=[obj],
             action_flag=CHANGE,
+            single_object=True,
         )
 
     def get_queryset(self, request):
         try:
             qs = self.model.all_objects.all()
-        except Exception as ex:
-            qs = self.model._default_manager.all()
+        except Exception:  # noqa: BLE001
+            qs = self.model._default_manager.all()  # noqa: SLF001
 
         ordering = self.get_ordering(request) or ()
         if ordering:
@@ -119,5 +120,7 @@ class PermanentModelListFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() is not None:
-            return queryset.filter(~Q(**{"%s__isnull" % permanent_settings.FIELD: int(self.value())})).distinct()
+            return queryset.filter(
+                ~Q(**{f"{permanent_settings.FIELD}__isnull": bool(int(self.value()))}),
+            ).distinct()
         return queryset

@@ -1,5 +1,0 @@
-include CHANGES.rst
-include LICENSE
-include README.rst
-recursive-include django_permanent_helpers/templates *.html
-recursive-include django_permanent_helpers/locale *.po *.mo
