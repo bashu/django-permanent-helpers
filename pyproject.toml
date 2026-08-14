@@ -4,7 +4,7 @@ requires = [ "setuptools>=61" ]
 
 [project]
 name = "django-permanent-helpers"
-version = "1.0.1"
+version = "2.0.0"
 description = "django admin helper classes for django-permanent models"
 license = "MIT"
 authors = [ { name = "Basil Shubin", email = "basil.shubin@gmail.com" } ]
