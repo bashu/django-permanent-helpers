@@ -1,7 +1,7 @@
 Changes
 -------
 
-2.0.0 (WIP)
+2.0.0 (2026-08-14)
 ~~~~~~~~~~~~~~~~~~
 
 * Fixed a ``ValueError`` in ``PermanentModelListFilter.queryset()`` on Django 5+ (``__isnull`` requires a strict ``bool``).
