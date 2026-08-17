@@ -1,7 +1,5 @@
 SECRET_KEY = "DUMMY_SECRET_KEY"  # noqa: S105
 
-INTERNAL_IPS = []
-
 # Application definition
 
 PROJECT_APPS = ["django_permanent_helpers.tests", "django_permanent_helpers"]
@@ -31,17 +29,6 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.contrib.auth.context_processors.auth",
-                "django.template.context_processors.debug",
-                "django.template.context_processors.i18n",
-                "django.template.context_processors.media",
-                "django.template.context_processors.static",
-                "django.template.context_processors.tz",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
     },
 ]
 
@@ -56,5 +43,3 @@ DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memor
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = "/static/"
-
-USE_TZ = True

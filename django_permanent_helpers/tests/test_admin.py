@@ -23,7 +23,7 @@ from .models import RegularModel
 CHANGELIST_URL = "admin:tests_mypermanentmodel_changelist"
 
 
-class PermanentModelAdminTestCase(TestCase):
+class PermanentModelAdminTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.active = MyPermanentModel.objects.create(name="active")
@@ -63,7 +63,7 @@ class PermanentModelAdminTestCase(TestCase):
         assert list(model_admin.get_queryset(request)) == [self.active, self.deleted]
 
 
-class DeleteSelectedTestCase(TestCase):
+class DeleteSelectedTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.model_admin = MyPermanentModelAdmin(MyPermanentModel, admin.site)
@@ -83,7 +83,7 @@ class DeleteSelectedTestCase(TestCase):
         assert description == "Soft delete selected %(verbose_name_plural)s"
 
 
-class RestoreSelectedTestCase(TestCase):
+class RestoreSelectedTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.permanent = MyPermanentModel.objects.create(name="obj")
