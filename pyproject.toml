@@ -179,6 +179,6 @@ ini_options.addopts = [ "--ds=django_permanent_helpers.tests.settings", "--reuse
 
 # ==== Coverage ====
 [tool.coverage]
+run.source = [ "django_permanent_helpers" ]
 run.omit = [ "*/migrations/*", "*/tests/*" ]
 run.relative_files = true
-run.source = [ "django_permanent_helpers" ]
