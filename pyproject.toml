@@ -55,6 +55,7 @@ dev = [
 
 [tool.setuptools]
 packages.find.include = [ "django_permanent_helpers*" ]
+packages.find.exclude = [ "django_permanent_helpers.tests*" ]
 include-package-data = true
 package-data.django_permanent_helpers = [ "locale/**/*.mo", "locale/**/*.po", "templates/**/*.html" ]
 dynamic.readme = { file = [ "README.rst", "CHANGES.rst" ], content-type = "text/x-rst" }
