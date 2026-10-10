@@ -4,11 +4,11 @@ requires = [ "setuptools>=61" ]
 
 [project]
 name = "django-permanent-helpers"
-version = "2.0.0"
+version = "2.1.0"
 description = "django admin helper classes for django-permanent models"
 license = "MIT"
 authors = [ { name = "Basil Shubin", email = "basil.shubin@gmail.com" } ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Environment :: Web Environment",
@@ -20,11 +20,11 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Topic :: Internet :: WWW/HTTP",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -39,21 +39,22 @@ urls.homepage = "https://github.com/bashu/django-permanent-helpers/"
 
 [dependency-groups]
 dev = [
-  "coverage==7.15.4",
-  "django-stubs[compatible-mypy]==6.0.9",
-  "django-upgrade==1.31.1",
-  "djlint==1.44.2",
+  "coverage==7.16.2",
+  "django-stubs[compatible-mypy]==6.1.2",
+  "django-upgrade==1.33.0",
+  "djlint==1.46.4",
   "factory-boy==3.3.3",
-  "mypy==2.3.0",
-  "pre-commit==4.6.1",
+  "mypy==2.4.0",
+  "pre-commit==4.6.2",
   "pytest==9.1.1",
-  "pytest-django==4.13.0",
+  "pytest-django==4.14.0",
   "pytest-sugar==1.1.1",
-  "ruff==0.16.2",
+  "ruff==0.16.10",
 ]
 
 [tool.setuptools]
 packages.find.include = [ "django_permanent_helpers*" ]
+packages.find.exclude = [ "django_permanent_helpers.tests*" ]
 include-package-data = true
 package-data.django_permanent_helpers = [ "locale/**/*.mo", "locale/**/*.po", "templates/**/*.html" ]
 dynamic.readme = { file = [ "README.rst", "CHANGES.rst" ], content-type = "text/x-rst" }
@@ -179,6 +180,6 @@ ini_options.addopts = [ "--ds=django_permanent_helpers.tests.settings", "--reuse
 
 # ==== Coverage ====
 [tool.coverage]
+run.source = [ "django_permanent_helpers" ]
 run.omit = [ "*/migrations/*", "*/tests/*" ]
 run.relative_files = true
-run.source = [ "django_permanent_helpers" ]

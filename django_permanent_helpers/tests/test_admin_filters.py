@@ -8,7 +8,7 @@ from .admin import MyPermanentModelAdmin
 from .models import MyPermanentModel
 
 
-class PermanentModelListFilterTestCase(TestCase):
+class PermanentModelListFilterTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.model_admin = MyPermanentModelAdmin(MyPermanentModel, admin.site)

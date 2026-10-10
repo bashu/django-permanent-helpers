@@ -13,10 +13,6 @@ django-permanent-helpers
 .. image:: https://github.com/bashu/django-permanent-helpers/actions/workflows/test.yml/badge.svg
     :target: https://github.com/bashu/django-permanent-helpers/actions/workflows/test.yml
 
-.. image:: https://static.pepy.tech/badge/django-permanent-helpers/month
-    :target: https://pepy.tech/project/django-permanent-helpers
-
-
 Django admin helper classes for django-permanent_ models.
 
 Authored by `Basil Shubin <http://github.com/bashu>`_, inspired by django-taggit-helpers_
