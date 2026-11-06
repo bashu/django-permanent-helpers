@@ -39,10 +39,10 @@ urls.homepage = "https://github.com/bashu/django-permanent-helpers/"
 
 [dependency-groups]
 dev = [
-  "coverage==7.17.0",
+  "coverage==7.17.1",
   "django-stubs[compatible-mypy]==6.1.2",
   "django-upgrade==1.33.0",
-  "djlint==1.49.2",
+  "djlint==1.49.6",
   "factory-boy==3.3.3",
   "mypy==2.4.1",
   "pre-commit==4.7.0",
