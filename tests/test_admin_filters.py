@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.test import RequestFactory
-from django.test import TestCase
+
+import pytest
 
 from django_permanent_helpers.admin import PermanentModelListFilter
 
@@ -8,9 +8,10 @@ from .admin import MyPermanentModelAdmin
 from .models import MyPermanentModel
 
 
-class PermanentModelListFilterTest(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
+class TestPermanentModelListFilter:
+    @pytest.fixture(autouse=True)
+    def setup(self, rf, db):
+        self.factory = rf
         self.model_admin = MyPermanentModelAdmin(MyPermanentModel, admin.site)
         self.active = MyPermanentModel.objects.create(name="active")
         self.deleted = MyPermanentModel.objects.create(name="deleted")

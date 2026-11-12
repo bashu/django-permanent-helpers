@@ -9,9 +9,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import get_messages
-from django.test import RequestFactory
-from django.test import TestCase
 from django.urls import reverse
+
+import pytest
+from pytest_django.asserts import assertContains
+from pytest_django.asserts import assertRedirects
+from pytest_django.asserts import assertTemplateUsed
 
 from django_permanent_helpers.admin import PermanentModelAdmin
 from django_permanent_helpers.admin import restore_selected
@@ -23,38 +26,37 @@ from .models import RegularModel
 CHANGELIST_URL = "admin:tests_mypermanentmodel_changelist"
 
 
-class PermanentModelAdminTest(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
+class TestPermanentModelAdmin:
+    @pytest.fixture(autouse=True)
+    def setup(self, rf, admin_user):
+        self.factory = rf
         self.active = MyPermanentModel.objects.create(name="active")
         self.deleted = MyPermanentModel.objects.create(name="deleted")
         self.deleted.delete()
         self.regular = RegularModel.objects.create(name="regular")
         self.model_admin = MyPermanentModelAdmin(MyPermanentModel, admin.site)
-        self.admin_user = get_user_model().objects.create_superuser(
-            username="admin",
-            email="admin@example.com",
-            password="pw",  # noqa: S106
-        )
+        self.user = admin_user
+
+    def get_request(self):
+        request = self.factory.get("/")
+        request.user = self.user
+        return request
 
     def test_all_objects(self):
-        request = self.factory.get("/")
-        request.user = self.admin_user
+        request = self.get_request()
         assert set(self.model_admin.get_queryset(request)) == {
             self.active,
             self.deleted,
         }
 
     def test_default_manager(self):
-        request = self.factory.get("/")
-        request.user = self.admin_user
+        request = self.get_request()
         assert list(
             PermanentModelAdmin(RegularModel, admin.site).get_queryset(request),
         ) == [self.regular]
 
     def test_ordering(self):
-        request = self.factory.get("/")
-        request.user = self.admin_user
+        request = self.get_request()
 
         class OrderedAdmin(MyPermanentModelAdmin):
             ordering = ("name",)
@@ -63,19 +65,20 @@ class PermanentModelAdminTest(TestCase):
         assert list(model_admin.get_queryset(request)) == [self.active, self.deleted]
 
 
-class DeleteSelectedTest(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
+class TestDeleteSelected:
+    @pytest.fixture(autouse=True)
+    def setup(self, rf, admin_user):
+        self.factory = rf
         self.model_admin = MyPermanentModelAdmin(MyPermanentModel, admin.site)
-        self.admin_user = get_user_model().objects.create_superuser(
-            username="admin",
-            email="admin@example.com",
-            password="pw",  # noqa: S106
-        )
+        self.user = admin_user
+
+    def get_request(self):
+        request = self.factory.get("/")
+        request.user = self.user
+        return request
 
     def test_delete_selected(self):
-        request = self.factory.get("/")
-        request.user = self.admin_user
+        request = self.get_request()
         actions = self.model_admin.get_actions(request)
         func, name, description = actions["delete_selected"]
         assert func is delete_selected
@@ -83,18 +86,16 @@ class DeleteSelectedTest(TestCase):
         assert description == "Soft delete selected %(verbose_name_plural)s"
 
 
-class RestoreSelectedTest(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
+class TestRestoreSelected:
+    @pytest.fixture(autouse=True)
+    def setup(self, rf, admin_user, client):
+        self.factory = rf
         self.permanent = MyPermanentModel.objects.create(name="obj")
         self.permanent.delete()
         self.model_admin = MyPermanentModelAdmin(MyPermanentModel, admin.site)
-        self.admin_user = get_user_model().objects.create_superuser(
-            username="admin",
-            email="admin@example.com",
-            password="pw",  # noqa: S106
-        )
-        self.client.force_login(self.admin_user)
+        self.user = admin_user
+        self.client = client
+        self.client.force_login(self.user)
 
     def test_confirmation(self):
         response = self.client.post(
@@ -105,11 +106,11 @@ class RestoreSelectedTest(TestCase):
             },
         )
         assert response.status_code == HTTPStatus.OK
-        self.assertTemplateUsed(
+        assertTemplateUsed(
             response,
             "django_permanent_helpers/restore_selected_confirmation.html",
         )
-        self.assertContains(response, f'value="{self.permanent.pk}"')
+        assertContains(response, f'value="{self.permanent.pk}"')
 
     def test_permission(self):
         user = get_user_model().objects.create_user(
@@ -146,7 +147,7 @@ class RestoreSelectedTest(TestCase):
                 "post": "yes",
             },
         )
-        self.assertRedirects(response, reverse(CHANGELIST_URL))
+        assertRedirects(response, reverse(CHANGELIST_URL))
 
         restored = MyPermanentModel.all_objects.get(pk=self.permanent.pk)
         assert restored.removed is None
@@ -156,14 +157,14 @@ class RestoreSelectedTest(TestCase):
             content_type=ContentType.objects.get_for_model(MyPermanentModel),
         )
         assert log_entry.action_flag == CHANGE
-        assert log_entry.user_id == self.admin_user.pk
+        assert log_entry.user_id == self.user.pk
 
         messages = [str(m) for m in get_messages(response.wsgi_request)]
         assert any("Successfully restored" in m for m in messages)
 
     def test_empty_queryset_is_noop(self):
         request = self.factory.post("/", {"post": "yes"})
-        request.user = self.admin_user
+        request.user = self.user
         result = restore_selected(
             self.model_admin,
             request,
