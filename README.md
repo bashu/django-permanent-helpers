@@ -2,11 +2,11 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/bashu/django-permanent-helpers/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                                       |    Stmts |     Miss |    Cover |   Missing |
-|------------------------------------------- | -------: | -------: | -------: | --------: |
-| django\_permanent\_helpers/\_\_init\_\_.py |        0 |        0 |     100% |           |
-| django\_permanent\_helpers/admin.py        |       61 |        0 |     100% |           |
-| **TOTAL**                                  |   **61** |    **0** | **100%** |           |
+| Name                                           |    Stmts |     Miss |    Cover |   Missing |
+|----------------------------------------------- | -------: | -------: | -------: | --------: |
+| src/django\_permanent\_helpers/\_\_init\_\_.py |        0 |        0 |     100% |           |
+| src/django\_permanent\_helpers/admin.py        |       61 |        0 |     100% |           |
+| **TOTAL**                                      |   **61** |    **0** | **100%** |           |
 
 
 ## Setup coverage badge
