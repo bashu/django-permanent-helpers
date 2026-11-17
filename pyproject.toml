@@ -42,7 +42,7 @@ urls.homepage = "https://github.com/bashu/django-permanent-helpers/"
 dev = [
   "coverage==7.17.3",
   "django-upgrade==1.33.0",
-  "djlint==1.50.0",
+  "djlint==1.50.1",
   "pre-commit==4.7.0",
   "pytest==9.2.0",
   "pytest-django==4.14.0",
